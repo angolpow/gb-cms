@@ -1,0 +1,7 @@
+---
+- name: Install some packages
+  hosts: all
+
+
+  roles:
+    - common

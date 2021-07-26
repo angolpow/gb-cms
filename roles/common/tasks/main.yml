@@ -1,0 +1,32 @@
+---
+- name: Install packets
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+   - htop
+   - unzip
+   - telnet
+   - python3
+   - java-1.8.0-openjdk.x86_64
+
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /tmp/test-dir
+    state: directory
+    mode: '0755'
+
+- name: Download pip installer
+  get_url:
+    url: https://bootstrap.pypa.io/get-pip.py
+    dest: /tmp/test-dir/get-pip.py
+    mode: '0440'
+
+- name: install nginx
+  yum:
+    name: nginx
+    state: present
+  notify:
+    - nginx systemd
+    - Check status
