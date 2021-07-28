@@ -4,8 +4,25 @@
     name: nginx
     state: present
 
+- name: Install php-fpm
+  yum:
+    name: php-fpm
+    state: present
+
+- name: Enable and start php
+  ansible.builtin.systemd:
+    name: php-fpm
+    enabled: yes
+    state: started
+
+- name: Deploy wordpress config
+  template:
+    src: "{{ role_path }}/templates/wp.conf.j2"
+    dest: "/etc/nginx/default.d/wp.conf"
+    force: true
+
 - name: Enable and start nginx
   ansible.builtin.systemd:
     name: nginx
     enabled: yes
-    state: started
+    state: restarted

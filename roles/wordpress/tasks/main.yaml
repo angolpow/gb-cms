@@ -3,6 +3,7 @@
   ansible.builtin.unarchive:
     src: https://ru.wordpress.org/latest-ru_RU.zip
     dest: /usr/share/nginx/html/
+    remote_src: yes
 
 
 - name: Deploy wordpress config
@@ -11,3 +12,10 @@
     dest: "/usr/share/nginx/html/wordpress/wp-config.php"
     force: true
 
+- name: Change ownership
+  ansible.builtin.file:
+    path: "/usr/share/nginx/html/wordpress"
+    state: directory
+    recurse: yes
+    owner: nginx
+    group: nginx
