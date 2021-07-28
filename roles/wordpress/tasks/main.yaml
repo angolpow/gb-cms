@@ -1,0 +1,13 @@
+---
+- name: Download and unzip wordpress src
+  ansible.builtin.unarchive:
+    src: https://ru.wordpress.org/latest-ru_RU.zip
+    dest: /usr/share/nginx/html/
+
+
+- name: Deploy wordpress config
+  template:
+    src: "{{ role_path }}/templates/wp-config.php.j2"
+    dest: "/usr/share/nginx/html/wordpress/wp-config.php"
+    force: true
+

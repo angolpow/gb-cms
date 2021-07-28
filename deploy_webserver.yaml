@@ -1,0 +1,8 @@
+---
+- name: Deploy webserver
+  hosts: webserver
+  roles:
+  - { role: mysql, tags: [mysql] }
+  - { role: wordpress, tags: [wordpress] }
+  - { role: nginx, tags: [nginx] }
+  - { role: nginx_check, tags: [nginx_check] }

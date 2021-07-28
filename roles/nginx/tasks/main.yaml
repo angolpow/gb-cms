@@ -1,0 +1,11 @@
+---
+- name: Install nginx
+  yum:
+    name: nginx
+    state: present
+
+- name: Enable and start nginx
+  ansible.builtin.systemd:
+    name: nginx
+    enabled: yes
+    state: started
