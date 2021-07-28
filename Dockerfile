@@ -1,9 +1,13 @@
-FROM python:3.7
+FROM centos7
 
-RUN pip install --upgrade pip
-RUN pip install ansible
-RUN pip install "ansible-lint[yamllint]"
+WORKDIR /webserver
+RUN yum install python3
+RUN pip3 install --upgrade pip
+RUN pip3 install ansible
+RUN pip3 install "ansible-lint[yamllint]"
 
-WORKDIR /
+COPY inventory .
+COPY roles .
+COPY deploy_webserver.yaml .
 
 CMD ["bash"]

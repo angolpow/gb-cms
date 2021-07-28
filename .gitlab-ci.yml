@@ -5,19 +5,29 @@ stages:
 
 build:
   stage: build
+  image: docker:19.03.12
+  services:
+    - docker:19.03.12-dind
+  variables:
+    DOCKER_DRIVER: overlay
+    DOCKER_HOST: tcp://docker:2375 
+    DOCKER_TLS_CERTDIR: ""
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker build . -t py37ansible:latest
+    - docker build . -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID
 
 test:
   stage: test
-  image: py37ansible:latest
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID
   script:
-    - ansible-lint -p deploy_webserver.yaml
-    - yamllint .
+    - ansible-lint -p /webserver/deploy_webserver.yaml
+    - yamllint /webserver/
 
 deploy:
   stage: deploy
-  image: py37ansible:latest
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID
   script:
-    - ansible-playbook -i inventory/local/hosts deploy_webserver.yaml -e first_run=true
+    - ansible-playbook -i /webserver/inventory/local/hosts /webserver/deploy_webserver.yaml -e first_run=true
 
