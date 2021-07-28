@@ -1,0 +1,22 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker build . -t py37ansible:latest
+
+test:
+  stage: test
+  image: py37ansible:latest
+  script:
+    - ansible-lint -p deploy_webserver.yaml
+    - yamllint .
+
+deploy:
+  stage: deploy
+  image: py37ansible:latest
+  script:
+    - ansible-playbook -i inventory/local/hosts deploy_webserver.yaml -e first_run=true
