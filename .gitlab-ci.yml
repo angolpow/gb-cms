@@ -20,3 +20,4 @@ deploy:
   image: py37ansible:latest
   script:
     - ansible-playbook -i inventory/local/hosts deploy_webserver.yaml -e first_run=true
+
