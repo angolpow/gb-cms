@@ -1,0 +1,7 @@
+---
+- name: run container
+  hosts: all
+
+
+  roles:
+    - rabbitmq

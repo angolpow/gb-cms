@@ -1,0 +1,7 @@
+---
+- name: Add user
+  hosts: server
+
+
+  roles:
+    - add_user

@@ -1,0 +1,7 @@
+- name: run rabbitmq container
+  docker_container:
+    name: rmq
+    image: rabbitmq:3
+    state: started
+    env:
+      RABBITMQ_NODENAME: node1
