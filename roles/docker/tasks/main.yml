@@ -1,0 +1,27 @@
+---
+- name: Install prereq
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+   - yum-utils
+
+- name: Add Docker repo
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docer-ce.repo
+
+- name: Install packets
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+   - docker-ce
+   - docker-ce-cli
+   - containerd.io
+
+- name: Enable docker
+  ansible.builtin.systemd:
+    name: docker
+    enabled: yes
+    state: started
