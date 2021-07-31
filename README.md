@@ -3,4 +3,4 @@
 2. ansible-playbook -i inventory/local/hosts 2.run_roles.yml --ask-vault-pass
 3. ansible-playbook -i inventory/local/hosts 3.nginx.yml --ask-vault-pass -e nginx_port=91
 4. ansible-playbook -i inventory/local/hosts 4.docker.yml --ask-vault-pass
-5. ansible-playbook -i inventory/local/hosts 5.rabbit.yml --ask-vault-pass
+5. python3 $(which ansible-playbook) -i inventory/local/hosts 5.rabbit.yml --ask-vault-pass -e 'ansible_python_interpreter=/usr/bin/python3'
