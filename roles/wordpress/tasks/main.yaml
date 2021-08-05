@@ -12,6 +12,20 @@
     dest: "/usr/share/nginx/html/wordpress/wp-config.php"
     force: true
 
+
+- name: Deploy wp nginx config
+  template:
+    src: "{{ role_path }}/templates/wp.conf.j2"
+    dest: "/etc/nginx/conf.d/wp.conf"
+    force: true
+
+
+- name: Copy favicon
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/favicon.ico"
+    dest: "/usr/share/nginx/html/favicon.ico"
+
+
 - name: Change ownership
   ansible.builtin.file:
     path: "/usr/share/nginx/html/wordpress"
@@ -19,3 +33,10 @@
     recurse: yes
     owner: nginx
     group: nginx
+
+
+- name: And we need to restart nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: restarted
+

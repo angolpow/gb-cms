@@ -54,3 +54,6 @@
     priv: 'wordpress.*:ALL'
     state: present
 
+
+- name: Add backup
+  include: "backup.yaml"
