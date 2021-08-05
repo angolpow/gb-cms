@@ -3,6 +3,6 @@
   hosts: webserver
   roles:
   - { role: mysql, tags: [mysql] }
-  - { role: wordpress, tags: [wordpress] }
   - { role: nginx, tags: [nginx] }
+  - { role: wordpress, tags: [wordpress] }
   - { role: nginx_check, tags: [nginx_check] }
