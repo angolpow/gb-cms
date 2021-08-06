@@ -24,6 +24,7 @@ test:
   script:
     - ansible-lint -p /webserver/deploy_webserver.yaml
     - yamllint /webserver/
+  allow_failure: true
 
 deploy:
   stage: deploy
