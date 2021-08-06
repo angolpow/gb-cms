@@ -1,2 +1,2 @@
 [webserver]
-localhost ansible_connection=local
+192.168.243.131 ansible_user=root
