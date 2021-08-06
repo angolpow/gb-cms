@@ -30,5 +30,5 @@ deploy:
   stage: deploy
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID
   script:
-    - ansible-playbook -i /webserver/inventory/local/hosts /webserver/deploy_webserver.yaml -e first_run=true
+    - ansible-playbook -i /webserver/inventory/local/hosts /webserver/deploy_webserver.yaml
 

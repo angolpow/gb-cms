@@ -11,8 +11,8 @@ RUN pip3 install --upgrade pip
 RUN pip3 install ansible
 RUN pip3 install "ansible-lint[yamllint]"
 
-COPY inventory .
-COPY roles .
+COPY inventory ./inventory
+COPY roles ./roles
 COPY deploy_webserver.yaml .
 
 CMD ["bash"]
