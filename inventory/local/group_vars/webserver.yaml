@@ -1,0 +1,5 @@
+---
+mysql:
+  DB_USER: "wordpress"
+  DB_PASSWORD: "$uper$ecret312"
+  ROOT_PW: "veradfdrsADszv2"

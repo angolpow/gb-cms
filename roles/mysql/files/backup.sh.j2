@@ -1,0 +1,7 @@
+DATE=`date +"%d_%b_%Y_%H%M"`
+SQLFILE=/root/db_backup_${DATE}.sql
+DATABASE=wordpress
+USER=root
+PASSWORD={{ mysql.ROOT_PW }}
+ 
+mysqldump -u ${USER} -p${PASSWORD} ${DATABASE} | gzip > ${SQLFILE}.gz

@@ -1,0 +1,59 @@
+---
+- name: Install mysql
+  yum:
+    name: mariadb-server
+    state: present
+
+
+- name: Enable and start mysql
+  ansible.builtin.systemd:
+    name: mariadb
+    enabled: yes
+    state: started
+
+
+- name: Adds Python MySQL support on RedHat/CentOS
+  yum: 
+    name: MySQL-python 
+    state: present
+
+
+- name: Sets the root password 
+  mysql_user: 
+    login_user: root 
+    login_password: ""
+    user: root 
+    password: "{{ mysql.ROOT_PW }}" 
+    host: localhost
+  ignore_errors: yes
+
+
+- name: Removes all anonymous user accounts
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql.ROOT_PW }}"
+    name: ''
+    host_all: yes
+    state: absent
+
+
+- name: Create wordpress database
+  mysql_db:
+    login_user: root
+    login_password: "{{ mysql.ROOT_PW }}"
+    name: wordpress
+    state: present
+
+
+- name: Create db user with privs
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql.ROOT_PW }}"
+    name: "{{ mysql.DB_USER }}"
+    password: "{{ mysql.DB_PASSWORD }}"
+    priv: 'wordpress.*:ALL'
+    state: present
+
+
+- name: Add backup
+  include: "backup.yaml"
