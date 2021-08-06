@@ -30,8 +30,8 @@ deploy:
   stage: deploy
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG.$CI_PIPELINE_ID
   script:
-    - mkdir -p ~/.ssh
-    - echo $SSH_KEY > ~/.ssh/id_rsa
-    - chmod -R go= ~/.ssh
+    - eval $(ssh-agent -s)
+    - echo "$SSH_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
     - ansible-playbook -i /webserver/inventory/local/hosts /webserver/deploy_webserver.yaml
 
