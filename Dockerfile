@@ -3,6 +3,7 @@ FROM centos:7
 WORKDIR /webserver
 
 RUN yum install -y python3
+RUN yum install -y openssh-clients
 
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8

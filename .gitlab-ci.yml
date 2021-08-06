@@ -32,5 +32,6 @@ deploy:
   script:
     - mkdir -p ~/.ssh
     - echo $SSH_KEY > ~/.ssh/id_rsa
+    - chmod -R go= ~/.ssh
     - ansible-playbook -i /webserver/inventory/local/hosts /webserver/deploy_webserver.yaml
 
