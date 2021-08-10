@@ -4,7 +4,9 @@
     src: https://ru.wordpress.org/latest-ru_RU.zip
     dest: /usr/share/nginx/html/
     remote_src: yes
-
+  tags: 
+  - update_wp
+  - never
 
 - name: Deploy wordpress config
   template:

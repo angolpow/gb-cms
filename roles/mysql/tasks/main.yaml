@@ -50,6 +50,7 @@
     login_user: root
     login_password: "{{ mysql.ROOT_PW }}"
     name: "{{ mysql.DB_USER }}"
+    host: "%"
     password: "{{ mysql.DB_PASSWORD }}"
     priv: 'wordpress.*:ALL'
     state: present

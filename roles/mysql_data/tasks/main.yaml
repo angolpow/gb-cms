@@ -1,0 +1,15 @@
+---
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/import.sql"
+    dest: "/root/import.sql"
+
+- name: Run SQL commands against DB to create table
+  mysql_db:
+    login_password: "{{ mysql.DB_PASSWORD }}"
+    login_user: "{{ mysql.DB_USER }}"
+    name: "wordpress"
+    state: import
+    target: "/root/import.sql"
+
+

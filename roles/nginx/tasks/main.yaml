@@ -30,3 +30,19 @@
     name: nginx
     enabled: yes
     state: started
+
+- name: Start nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+  tags:
+  - start
+  - never
+
+- name: Stop nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: stopped
+  tags:
+  - stop
+  - never

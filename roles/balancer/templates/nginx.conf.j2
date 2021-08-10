@@ -1,0 +1,39 @@
+user nginx;
+
+worker_processes 3;
+
+error_log /var/log/nginx/error.log debug;
+
+events {
+worker_connections 1024;
+}
+
+http {
+
+include mime.types;
+default_type application/octet-stream;
+client_header_timeout 3m;
+client_body_timeout 3m;
+send_timeout 3m;
+sendfile on;
+
+upstream web {
+
+{% for host in groups['wordpress'] %}
+server {{ host }} weight=2;
+{% endfor %}
+
+}
+server {
+
+listen 80;
+location / {
+
+
+proxy_pass http://web;
+
+include /etc/nginx/proxy.conf;
+
+}
+}
+}

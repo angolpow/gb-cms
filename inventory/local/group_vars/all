@@ -1,5 +1,6 @@
 ---
 mysql:
+  DB_HOSTNAME: "192.168.114.130"
   DB_USER: "wordpress"
   DB_PASSWORD: "$uper$ecret312"
   ROOT_PW: "veradfdrsADszv2"
