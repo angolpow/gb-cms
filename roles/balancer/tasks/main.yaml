@@ -1,0 +1,33 @@
+---
+- name: Deploy nginx config
+  template:
+    src: "{{ role_path }}/templates/nginx.conf.j2"
+    dest: "/etc/nginx/nginx.conf"
+    force: true
+
+- name: Deploy nginx proxy config
+  template:
+    src: "{{ role_path }}/templates/proxy.conf.j2"
+    dest: "/etc/nginx/proxy.conf"
+    force: true
+
+- name: We need to restart nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: restarted
+
+- name: Start nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+  tags:
+  - start
+  - never
+
+- name: Stop nginx
+  ansible.builtin.systemd:
+    name: nginx
+    state: stopped
+  tags:
+  - stop
+  - never

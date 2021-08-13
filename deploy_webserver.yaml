@@ -1,0 +1,27 @@
+---
+- name: Deploy nginx
+  hosts: balancer
+  roles:
+  - role: nginx
+  - role: balancer
+
+
+- name: Deploy wp
+  hosts: wordpress
+  roles:
+  - role: nginx
+  - role: wordpress
+  - role: nginx_check
+
+
+- name: Deploy mysql
+  hosts: mysql
+  roles:
+  - role: mysql
+
+
+- name: Insert data to MySql
+  hosts: mysql
+  roles:
+  - role: mysql_data
+    tags: import

@@ -1,0 +1,9 @@
+[balancer]
+192.168.114.131 ansible_user=root
+
+[wordpress]
+192.168.114.128 ansible_user=root
+192.168.114.129 ansible_user=root
+
+[mysql]
+192.168.114.130 ansible_user=root

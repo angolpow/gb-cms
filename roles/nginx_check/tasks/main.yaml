@@ -1,0 +1,9 @@
+---
+- name: Check our site root folder
+  uri:
+    url: http://localhost
+
+
+- name: Check our site favicon
+  uri:
+    url: http://localhost/favicon.ico
